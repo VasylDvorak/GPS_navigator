@@ -1,9 +1,10 @@
-package com.geekbrains.gps_navigator
+package com.geekbrains.gps_navigator.view
 
 import android.animation.Animator
 import android.animation.AnimatorInflater
 import android.content.Context
 import androidx.fragment.app.FragmentTransaction
+import com.geekbrains.gps_navigator.R
 
 class AnimatorDictionary(private val context: Context) {
 

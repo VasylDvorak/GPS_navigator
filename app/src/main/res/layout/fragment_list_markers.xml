@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/example_back">
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="@dimen/MCardMargin_16dp"
+        android:layout_marginTop="@dimen/MCardMargin_16dp"
+        android:layout_marginEnd="@dimen/MCardMargin_16dp"
+        android:layout_marginBottom="@dimen/MCardMargin_16dp"
+        app:cardBackgroundColor="@android:color/white"
+        app:cardCornerRadius="@dimen/MCard_Radius_15dp"
+        app:cardElevation="@dimen/MCard_Elevation_10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:strokeColor="@color/example"
+        app:strokeWidth="@dimen/MCard_Stroke_1dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/favorite"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/MCardMargin_16dp"
+                android:layout_marginTop="@dimen/MCardMargin_16dp"
+                android:layout_marginEnd="@dimen/MCardMargin_16dp"
+                android:text="@string/markers_list"
+                android:textColor="@color/example_dark"
+                android:textSize="@dimen/title_history_size"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/history_activity_recyclerview"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/Ops_0dp"
+                android:layout_marginStart="@dimen/MCardMargin_16dp"
+                android:layout_marginTop="@dimen/MCardMargin_16dp"
+                android:layout_marginEnd="@dimen/MCardMargin_16dp"
+                android:layout_marginBottom="@dimen/MCardMargin_16dp"
+                android:scrollbars="vertical"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/favorite" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+</androidx.constraintlayout.widget.ConstraintLayout>

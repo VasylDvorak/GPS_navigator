@@ -1,4 +1,16 @@
 <resources>
     <string name="app_name">GPS_navigator</string>
     <string name="title_activity_maps">MapsActivity</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="map">Карта</string>
+    <string name="markers">Маркеры</string>
+    <string name="markers_list">МАРКЕРЫ</string>
+    <string name="title_marker">Название</string>
+    <string name="coordinates_marker">Координаты</string>
+    <string name="note_marker">Заметка</string>
+    <string name="remove_marker">Удалить</string>
+    <string name="correct_marker">Редактировать</string>
+    <string name="marker_annotation">Аннотация</string>
+
 </resources>
