@@ -29,10 +29,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <TextView
-                android:id="@+id/header_textview_recycler_item"
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/title_markers_recycler_item"
                 style="@style/HeaderTextStyle"
-                android:layout_width="@dimen/Ops_0dp"
+                android:layout_width="wrap_content"
+                android:maxLength="15"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/MCardMargin_32dp"
                 android:layout_marginTop="@dimen/MCardMargin_20dp"
@@ -43,9 +44,23 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="@string/title_marker" />
-
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/annotation_recycler_item"
+                style="@style/BaseTextStyle"
+                android:layout_width="wrap_content"
+                android:maxLength="18"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/MCardMargin_32dp"
+                android:layout_marginBottom="@dimen/MCardMargin_20dp"
+                android:contentDescription="@string/marker_annotation"
+                android:textColor="@color/example_middle"
+                android:textIsSelectable="true"
+                android:textSize="@dimen/MCard_Text_20sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/title_markers_recycler_item"
+                tools:text="@string/marker_annotation" />
             <TextView
-                android:id="@+id/transcription_textview_recycler_item"
+                android:id="@+id/coordinates_recycler_item"
                 style="@style/TranscriptionTextStyle"
                 android:layout_width="@dimen/Ops_0dp"
                 android:layout_height="wrap_content"
@@ -55,56 +70,22 @@
                 android:textColor="@color/example"
                 android:textSize="@dimen/MCard_Text_20sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/header_textview_recycler_item"
+                app:layout_constraintTop_toBottomOf="@+id/annotation_recycler_item"
                 tools:text="@string/coordinates_marker" />
-
-            <TextView
-                android:id="@+id/description_textview_recycler_item"
-                style="@style/BaseTextStyle"
-                android:layout_width="@dimen/Ops_0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/MCardMargin_32dp"
-                android:layout_marginTop="@dimen/MCardMargin__8dp"
-                android:layout_marginBottom="@dimen/MCardMargin_20dp"
-                android:contentDescription="@string/marker_annotation"
-                android:textColor="@color/example_middle"
-                android:textIsSelectable="true"
-                android:textSize="@dimen/MCard_Text_20sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/transcription_textview_recycler_item"
-                tools:text="@string/marker_annotation" />
-
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>
-
     <ImageButton
-        android:id="@+id/set_favorite"
+        android:id="@+id/approve"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/MCardMargin_40dp"
+        android:layout_marginRight="@dimen/MCardMargin_32dp"
         android:background="@drawable/rounded_button"
-        android:contentDescription="@string/remove_marker"
-        android:elevation="15dp"
-        android:importantForAccessibility="no"
-        android:src="@drawable/baseline_delete_forever_24"
-        app:layout_constraintBottom_toTopOf="@+id/card_view"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/card_view"
-        app:tint="@color/image_favorite_button_colors" />
-
-    <ImageButton
-        android:id="@+id/play_articulation"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/MCardMargin_16dp"
-        android:background="@drawable/rounded_button"
-        android:contentDescription="@string/correct_marker"
+        android:contentDescription="@string/approve"
         android:elevation="@dimen/MCard_Radius_15dp"
         android:importantForAccessibility="no"
-        android:src="@drawable/baseline_create_24"
+        android:src="@drawable/baseline_done_24"
         app:layout_constraintBottom_toTopOf="@+id/card_view"
-        app:layout_constraintEnd_toStartOf="@+id/set_favorite"
-        app:layout_constraintTop_toTopOf="@+id/card_view"
-        app:tint="@color/image_sound_button_colors" />
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/card_view"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

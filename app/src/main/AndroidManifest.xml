@@ -7,7 +7,7 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
     <application
-        android:name=".application.App"
+        android:name="com.gps_navigator.application.App"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -23,7 +23,7 @@
             android:value="AIzaSyB5WzqBMurBlzXJV2YeQwgncy9hMjC7A-A" />
 
         <activity
-            android:name=".view.MapsActivity"
+            android:name="com.gps_navigator.view.MapsActivity"
             android:exported="true"
             android:label="@string/title_activity_maps">
             <intent-filter>

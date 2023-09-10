@@ -12,5 +12,6 @@
     <string name="remove_marker">Удалить</string>
     <string name="correct_marker">Редактировать</string>
     <string name="marker_annotation">Аннотация</string>
+    <string name="approve">Подтвердить</string>
 
 </resources>

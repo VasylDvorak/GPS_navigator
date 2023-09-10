@@ -1,5 +1,19 @@
 
 ?
 settings.gradle,0\5\05efc8b1657769a27696d478ded1e95f38737233
-<
-build.gradle,f\0\f07866736216be0ee2aba49e392191aeae700a35
+
+Q.idea/sonarlint/securityhotspotstore/f/0/f07866736216be0ee2aba49e392191aeae700a35,2\5\25f6469773b9f3ebb994178c1114a60412389f58
+
+Oapp/src/main/java/com/geekbrains/gps_navigator/view/favorite/FavoriteAdapter.kt,a\b\ab2548c244bd7b5557ee85135961aa45c6fe490f
+w
+G.idea/sonarlint/issuestore/0/5/05efc8b1657769a27696d478ded1e95f38737233,3\c\3c8c56407c35e5f5ebbd6c7250a79af8128a13a6
+
+Oapp/src/main/java/com/geekbrains/gps_navigator/view/BaseFragmentSettingsMenu.kt,4\4\44f021b47761c60f77aa8229bbf239d72077f672
+s
+Capp/src/main/java/com/geekbrains/gps_navigator/view/MapsActivity.kt,e\2\e2340044a022e8fb1c607ea17202c78768795bcf
+
+Q.idea/sonarlint/securityhotspotstore/0/5/05efc8b1657769a27696d478ded1e95f38737233,2\5\2534b7ffebad46793fc4d77da07aca83b23dd835
+w
+G.idea/sonarlint/issuestore/f/0/f07866736216be0ee2aba49e392191aeae700a35,b\f\bfb9453d49af9bc40f5f7a5f034be3c7ef8fa6bf
+s
+Capp/src/main/java/com/geekbrains/gps_navigator/view/MapsFragment.kt,4\6\46dfc24de3fab82767c05d3b063c4b0d35e0f172

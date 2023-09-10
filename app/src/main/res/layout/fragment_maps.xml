@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.MapsFragment">
+    tools:context="com.gps_navigator.view.MapsFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/mainMap"
@@ -34,7 +34,7 @@
             map:layout_constraintTop_toTopOf="parent">
 
             <TextView
-                android:id="@+id/speedmeter"
+                android:id="@+id/speedMeter"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
