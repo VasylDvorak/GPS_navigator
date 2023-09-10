@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MapsFragment">
+    tools:context="com.gps_navigator.view.MapsFragment">
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/mainMap"
         android:layout_width="match_parent"
@@ -21,58 +22,24 @@
             map:layout_constraintEnd_toEndOf="parent"
             map:layout_constraintStart_toStartOf="parent"
             map:layout_constraintTop_toTopOf="parent" />
+
         <androidx.cardview.widget.CardView
             android:id="@+id/cardView"
-            map:cardCornerRadius="18dp"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
+            map:cardCornerRadius="18dp"
             map:layout_constraintStart_toStartOf="parent"
             map:layout_constraintTop_toTopOf="parent">
+
             <TextView
-                android:id="@+id/speedmeter"
+                android:id="@+id/speedMeter"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:gravity="center"
-                android:textSize="24dp"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:textSize="24dp" />
         </androidx.cardview.widget.CardView>
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cdClose"
-            android:visibility="gone"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            map:cardCornerRadius="18dp"
-            android:layout_marginTop="10dp"
-            map:layout_constraintStart_toStartOf="@id/cardView"
-            map:layout_constraintTop_toBottomOf="@id/cardView">
-            <ImageView
-                android:id="@+id/remMarkerImage"
-                android:src="@drawable/baseline_delete_forever_24"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
-
-        </androidx.cardview.widget.CardView>
-    </androidx.constraintlayout.widget.ConstraintLayout>
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/settingcon"
-        android:background="@color/white"
-        android:visibility="gone"
-        map:layout_constraintEnd_toEndOf="parent"
-        map:layout_constraintStart_toStartOf="parent"
-        map:layout_constraintTop_toTopOf="parent">
-        <TextView
-            map:layout_constraintStart_toStartOf="parent"
-            map:layout_constraintTop_toTopOf="parent"
-            android:text="Меню настроек"
-            android:textSize="22dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
-            android:layout_marginTop="6dp" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
