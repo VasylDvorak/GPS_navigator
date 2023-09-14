@@ -13,5 +13,7 @@
     <string name="correct_marker">Редактировать</string>
     <string name="marker_annotation">Аннотация</string>
     <string name="approve">Подтвердить</string>
+    <string name="Kerch">Керчь</string>
+    <string name="iam_hear">Я здесь</string>
 
 </resources>

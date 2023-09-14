@@ -13,6 +13,7 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.GoogleMap.OnMarkerDragListener
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MapStyleOptions
 import com.google.android.gms.maps.model.Marker
@@ -23,6 +24,7 @@ import moxy.ktx.moxyPresenter
 
 
 const val TO_MARKER = "TO_MARKER"
+val kerch = LatLng(45.355560707166646, 36.46885790252713)
 
 class MapsFragment : BaseFragment<FragmentMapsBinding>(
     FragmentMapsBinding::inflate
@@ -35,19 +37,23 @@ class MapsFragment : BaseFragment<FragmentMapsBinding>(
     @SuppressLint("MissingPermission")
     private val callback = OnMapReadyCallback { gMap ->
         googleMap = gMap
-        googleMap.clear()
-        googleMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(requireContext(), R.raw.mpa))
-        // Add a marker in Sydney and move the camera
-        var kerch = LatLng(45.355560707166646, 36.46885790252713)
-        googleMap.addMarker(MarkerOptions().position(kerch).title("Керчь"))
+        googleMap.apply {
+            clear()
+            setMapStyle(MapStyleOptions.loadRawResourceStyle(requireContext(), R.raw.mpa))
+            addMarker(
+                MarkerOptions().position(kerch).title(getString(R.string.Kerch))
+                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE))
+            )
 
-        if (toMarker != null) {
-            googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(toMarker!!.position, 30f))
-        } else {
-            googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(kerch, 17f))
+            if (toMarker != null) {
+                moveCamera(CameraUpdateFactory.newLatLngZoom(toMarker!!.position, 30f))
+            } else {
+                moveCamera(CameraUpdateFactory.newLatLngZoom(kerch, 17f))
+            }
+            isMyLocationEnabled = true
+            isTrafficEnabled = true
+            isBuildingsEnabled = true
         }
-        googleMap.isTrafficEnabled = true
-        googleMap.isMyLocationEnabled = true
         presenter.loadMarkers()
         initSpeedMeter()
         addMarkerOnMap()
@@ -110,8 +116,10 @@ class MapsFragment : BaseFragment<FragmentMapsBinding>(
 
     override fun loadMarkers(markers: MutableList<MarkerOptions>) {
         markers.forEach {
-            it.icon(presenter.getBitmapFromVectorDrawable())
-            googleMap.addMarker(it)
+            try {
+                googleMap.addMarker(it)
+            } catch (e: UninitializedPropertyAccessException) {
+            }
         }
     }
 
@@ -119,7 +127,6 @@ class MapsFragment : BaseFragment<FragmentMapsBinding>(
     private fun initSpeedMeter() {
         googleMap.setOnMyLocationChangeListener {
             binding.speedMeter.text = "${(it.speedAccuracyMetersPerSecond * 3.6).toInt()} \n км/ч"
-
         }
     }
 

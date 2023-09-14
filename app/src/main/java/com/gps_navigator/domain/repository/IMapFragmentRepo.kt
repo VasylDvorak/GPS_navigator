@@ -1,7 +1,6 @@
 package com.gps_navigator.domain.repository
 
 
-import com.google.android.gms.maps.model.BitmapDescriptor
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
@@ -14,5 +13,4 @@ interface IMapFragmentRepo {
     fun saveListMarkers()
     fun onCorrectionClick(i: Int, marker: MarkerOptions)
     fun onRemove(i: Int): MutableList<MarkerOptions>
-    fun getBitmapFromVectorDrawable(drawableId: Int): BitmapDescriptor
 }

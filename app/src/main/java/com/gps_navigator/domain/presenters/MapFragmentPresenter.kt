@@ -1,8 +1,6 @@
 package com.gps_navigator.domain.presenters
 
 
-import com.geekbrains.gps_navigator.R
-import com.google.android.gms.maps.model.BitmapDescriptor
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
@@ -60,9 +58,4 @@ class MapFragmentPresenter : MvpPresenter<MapFragmentView>() {
     fun saveListMarkers() {
         mapFragmentRepo.saveListMarkers()
     }
-
-    fun getBitmapFromVectorDrawable(): BitmapDescriptor {
-        return mapFragmentRepo.getBitmapFromVectorDrawable(R.drawable.baseline_diamond_24)
-    }
-
 }
