@@ -1,4 +1,4 @@
-package com.gps_navigator.view.favorite
+package com.gps_navigator.view.markers
 
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView

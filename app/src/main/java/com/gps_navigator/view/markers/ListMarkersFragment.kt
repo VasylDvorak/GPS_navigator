@@ -1,4 +1,4 @@
-package com.gps_navigator.view.favorite
+package com.gps_navigator.view.markers
 
 import android.os.Bundle
 import android.view.View
@@ -8,15 +8,18 @@ import com.geekbrains.gps_navigator.R
 import com.geekbrains.gps_navigator.databinding.FragmentListMarkersBinding
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.gson.Gson
-import com.gps_navigator.view.BaseFragmentSettingsMenu
+import com.gps_navigator.domain.presenters.ListMarkersPresenter
+import com.gps_navigator.view.BaseFragment
 import com.gps_navigator.view.MapsFragment
 import com.gps_navigator.view.TO_MARKER
 import com.gps_navigator.view.viewById
+import moxy.ktx.moxyPresenter
 
-class ListMarkersFragment : BaseFragmentSettingsMenu<FragmentListMarkersBinding>(
+class ListMarkersFragment : BaseFragment<FragmentListMarkersBinding>(
     FragmentListMarkersBinding::inflate
 ) {
 
+    val presenter: ListMarkersPresenter by moxyPresenter { ListMarkersPresenter() }
     private val listMarkersRecyclerview by viewById<RecyclerView>(R.id.list_markers_recyclerview)
 
     private val adapter: ListMarkersAdapter by lazy {
@@ -39,32 +42,37 @@ class ListMarkersFragment : BaseFragmentSettingsMenu<FragmentListMarkersBinding>
     }
 
     private fun onCorrectionClick(i: Int, marker: MarkerOptions) {
-        listMarkers[i] = marker
+        presenter.onCorrectionClick(i, marker)
     }
 
     private fun onRemove(i: Int, marker: MarkerOptions) {
-        listMarkers.removeAt(i)
-        setDataToAdapter(listMarkers)
+        setDataToAdapter(presenter.onRemove(i))
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initViews()
-        if (!listFromSharedPreferences.isNullOrEmpty()) {
-            listMarkers = listFromSharedPreferences
-            setDataToAdapter(listMarkers)
-        }
     }
+
+    override fun init() {
+        listMarkersRecyclerview.adapter = adapter
+        ItemTouchHelper(ItemTouchHelperCallback(adapter)).attachToRecyclerView(
+            listMarkersRecyclerview
+        )
+        presenter.loadMarkers()
+    }
+
+    override fun loadMarkers(markers: MutableList<MarkerOptions>) {
+        setDataToAdapter(markers)
+    }
+
 
     private fun setDataToAdapter(data: MutableList<MarkerOptions>) {
         adapter.setData(data)
     }
 
-    private fun initViews() {
-        listMarkersRecyclerview.adapter = adapter
-        ItemTouchHelper(ItemTouchHelperCallback(adapter)).attachToRecyclerView(
-            listMarkersRecyclerview
-        )
+    override fun onPause() {
+        presenter.saveListMarkers()
+        super.onPause()
     }
 
     companion object {

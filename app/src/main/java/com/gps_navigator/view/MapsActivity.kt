@@ -5,7 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.geekbrains.gps_navigator.R
 import com.geekbrains.gps_navigator.databinding.ActivityMapsBinding
-import com.gps_navigator.view.favorite.ListMarkersFragment
+import com.gps_navigator.view.markers.ListMarkersFragment
 
 class MapsActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMapsBinding
@@ -25,6 +25,11 @@ class MapsActivity : AppCompatActivity() {
             }
             true
         }
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        setCurrentFragment(MapsFragment())
     }
 
     private fun setCurrentFragment(fragment: Fragment) =
