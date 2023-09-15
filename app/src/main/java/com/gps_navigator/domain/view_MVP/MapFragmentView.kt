@@ -1,4 +1,4 @@
-package com.gps_navigator.domain.view
+package com.gps_navigator.domain.view_MVP
 
 import com.google.android.gms.maps.model.MarkerOptions
 import moxy.MvpView

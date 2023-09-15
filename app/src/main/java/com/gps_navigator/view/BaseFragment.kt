@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.viewbinding.ViewBinding
-import com.gps_navigator.domain.view.MapFragmentView
+import com.gps_navigator.domain.view_MVP.MapFragmentView
 import moxy.MvpAppCompatFragment
 
 abstract class BaseFragment<B : ViewBinding>(

@@ -6,7 +6,7 @@ import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 import com.gps_navigator.domain.repository.IMapFragmentRepo
 import com.gps_navigator.domain.repository.MapFragmentRepo
-import com.gps_navigator.domain.view.MapFragmentView
+import com.gps_navigator.domain.view_MVP.MapFragmentView
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Scheduler
 import io.reactivex.rxjava3.core.Single
