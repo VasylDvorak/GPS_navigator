@@ -33,3 +33,5 @@ h
 8app/src/main/java/com/gps_navigator/view/MapsFragment.kt,4\3\4304cc39b7a68a9bf27ef40804af4d88b68d857a
 }
 Mapp/src/main/java/com/gps_navigator/domain/presenters/ListMarkersPresenter.kt,b\d\bdcefb3a77691e39e035246dcc682b30d142b7d7
+h
+8app/src/main/java/com/gps_navigator/view/BaseFragment.kt,5\4\54d4d8772864b2e952e668a681d69afaeccfe657
