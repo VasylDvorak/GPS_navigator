@@ -3,15 +3,13 @@ package com.gps_navigator.view
 import android.Manifest
 import android.annotation.SuppressLint
 import android.content.pm.PackageManager
-import android.graphics.Bitmap
-import android.graphics.Canvas
 import android.os.Bundle
 import android.view.View
 import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 import com.geekbrains.gps_navigator.R
 import com.geekbrains.gps_navigator.databinding.FragmentMapsBinding
 import com.google.android.gms.maps.CameraUpdateFactory
+import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.GoogleMap.OnMarkerDragListener
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
@@ -21,83 +19,51 @@ import com.google.android.gms.maps.model.MapStyleOptions
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.gson.Gson
+import com.gps_navigator.domain.presenters.MapFragmentPresenter
+import moxy.ktx.moxyPresenter
 
 
 const val TO_MARKER = "TO_MARKER"
+val kerch = LatLng(45.355560707166646, 36.46885790252713)
 
-class MapsFragment : BaseFragmentSettingsMenu<FragmentMapsBinding>(
+class MapsFragment : BaseFragment<FragmentMapsBinding>(
     FragmentMapsBinding::inflate
 ) {
     private var toMarker: MarkerOptions? = null
-    private var counter = 0
+    lateinit var googleMap: GoogleMap
+
+    val presenter: MapFragmentPresenter by moxyPresenter { MapFragmentPresenter() }
 
     @SuppressLint("MissingPermission")
     private val callback = OnMapReadyCallback { gMap ->
         googleMap = gMap
-        googleMap.clear()
-        googleMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(requireContext(), R.raw.mpa))
-        // Add a marker in Sydney and move the camera
-        var kerch = LatLng(45.355560707166646, 36.46885790252713)
-        googleMap.addMarker(MarkerOptions().position(kerch).title("Керчь"))
+        googleMap.apply {
+            clear()
+            setMapStyle(MapStyleOptions.loadRawResourceStyle(requireContext(), R.raw.mpa))
+            addMarker(
+                MarkerOptions().position(kerch).title(getString(R.string.Kerch))
+                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE))
+            )
 
-        if (toMarker != null) {
-            googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(toMarker!!.position, 30f))
-        } else {
-            googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(kerch, 17f))
+            if (toMarker != null) {
+                moveCamera(CameraUpdateFactory.newLatLngZoom(toMarker!!.position, 30f))
+            } else {
+                moveCamera(CameraUpdateFactory.newLatLngZoom(kerch, 17f))
+            }
+            isMyLocationEnabled = true
+            isTrafficEnabled = true
+            isBuildingsEnabled = true
         }
-
-        loadMarkers()
-        enableLocation()
-        googleMap.isTrafficEnabled = true
-        googleMap.isMyLocationEnabled = true
-
+        presenter.loadMarkers()
         initSpeedMeter()
         addMarkerOnMap()
         draggMarker()
     }
 
     private fun addMarkerOnMap() {
-
-
         googleMap.setOnMapClickListener { latLng ->
-
-            counter = listMarkers.size
-            var repeat: Boolean
-            do {
-                repeat = false
-                listMarkers.forEach {
-                    if (it.title == ("Маркер № " + "${counter}")) {
-                        repeat = true
-                    }
-                }
-                if (repeat) {
-                    counter++
-                }
-            } while (repeat)
-
-
-            var newMarker = MarkerOptions()
-                .position(latLng)
-                .title("Маркер № " + "${counter}")
-                .snippet("Аннотация № " + "${counter}")
-                .icon(
-                    BitmapDescriptorFactory
-                        .fromBitmap(getBitmapFromVectorDrawable(R.drawable.baseline_diamond_24))
-                )
-                .draggable(true)
-            googleMap.addMarker(newMarker)
-
-
-            listMarkers.add(
-                MarkerOptions()
-                    .position(latLng)
-                    .title("Маркер № " + "${counter}")
-                    .snippet("Аннотация № " + "${counter}")
-                    .draggable(true)
-            )
-
+            googleMap.addMarker(presenter.addMarkerOnMap(latLng))
         }
-
     }
 
     private fun draggMarker() {
@@ -111,33 +77,11 @@ class MapsFragment : BaseFragmentSettingsMenu<FragmentMapsBinding>(
 
             override fun onMarkerDragEnd(arg0: Marker) {
                 googleMap.animateCamera(CameraUpdateFactory.newLatLng(arg0.position))
-                titleMarker?.let {
-                    for (i in 0 until listMarkers.size) {
-                        if ((listMarkers[i].title + listMarkers[i].snippet) == it) {
-                            listMarkers[i] = MarkerOptions()
-                                .position(arg0.position)
-                                .title(listMarkers[i].title)
-                                .snippet(listMarkers[i].snippet)
-                                .draggable(true)
-                        }
-                    }
-                }
+                presenter.draggMarker(arg0, titleMarker)
             }
 
             override fun onMarkerDrag(arg0: Marker) {}
         })
-    }
-
-    private fun getBitmapFromVectorDrawable(drawableId: Int): Bitmap {
-        val drawable = ContextCompat.getDrawable(requireContext(), drawableId)
-        val bitmap = Bitmap.createBitmap(
-            drawable!!.intrinsicWidth,
-            drawable.intrinsicHeight, Bitmap.Config.ARGB_8888
-        )
-        val canvas = Canvas(bitmap)
-        drawable.setBounds(0, 0, canvas.width, canvas.height)
-        drawable.draw(canvas)
-        return bitmap
     }
 
     private fun enableLocation() {
@@ -166,26 +110,29 @@ class MapsFragment : BaseFragmentSettingsMenu<FragmentMapsBinding>(
         mapFragment?.getMapAsync(callback)
     }
 
-    private fun loadMarkers() {
-        listMarkers = mutableListOf()
-        if (!listFromSharedPreferences.isNullOrEmpty()) {
-            listMarkers = listFromSharedPreferences
-            listFromSharedPreferences.forEach {
-                it.icon(
-                    BitmapDescriptorFactory
-                        .fromBitmap(getBitmapFromVectorDrawable(R.drawable.baseline_diamond_24))
-                )
+    override fun init() {
+        enableLocation()
+    }
+
+    override fun loadMarkers(markers: MutableList<MarkerOptions>) {
+        markers.forEach {
+            try {
                 googleMap.addMarker(it)
+            } catch (e: UninitializedPropertyAccessException) {
             }
         }
-
     }
+
 
     private fun initSpeedMeter() {
         googleMap.setOnMyLocationChangeListener {
             binding.speedMeter.text = "${(it.speedAccuracyMetersPerSecond * 3.6).toInt()} \n км/ч"
-
         }
+    }
+
+    override fun onPause() {
+        presenter.saveListMarkers()
+        super.onPause()
     }
 
     companion object {

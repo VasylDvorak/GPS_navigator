@@ -1,4 +1,4 @@
-package com.gps_navigator.view.favorite
+package com.gps_navigator.view.markers
 
 import android.content.Context
 import android.text.Editable

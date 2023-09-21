@@ -5,22 +5,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.viewbinding.ViewBinding
-import com.google.android.gms.maps.GoogleMap
-import com.google.android.gms.maps.model.MarkerOptions
-import com.gps_navigator.model.delegates.SharedPreferencesDelegate
+import com.gps_navigator.domain.view_MVP.MapFragmentView
+import moxy.MvpAppCompatFragment
 
-const val LIST_KEY = "LIST_KEY"
-
-abstract class BaseFragmentSettingsMenu<B : ViewBinding>(
+abstract class BaseFragment<B : ViewBinding>(
     private val inflateBinding: (
         inflater: LayoutInflater, root: ViewGroup?, attachToRoot: Boolean
     ) -> B
-) : Fragment() {
-    var listFromSharedPreferences: MutableList<MarkerOptions> by SharedPreferencesDelegate(LIST_KEY)
-    lateinit var googleMap: GoogleMap
-    var listMarkers: MutableList<MarkerOptions> = mutableListOf()
+) : MvpAppCompatFragment(), MapFragmentView {
 
     private var _binding: B? = null
     protected val binding: B
@@ -44,10 +37,5 @@ abstract class BaseFragmentSettingsMenu<B : ViewBinding>(
     override fun onCreateAnimator(transit: Int, enter: Boolean, nextAnim: Int): Animator? {
         return Animator(requireContext())
             .setAnimator(transit, enter)
-    }
-
-    override fun onPause() {
-        listFromSharedPreferences = listMarkers
-        super.onPause()
     }
 }
